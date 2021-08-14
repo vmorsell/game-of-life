@@ -56,6 +56,7 @@ func (g *Grid) IsLiveNextGen(x, y int) bool {
 				continue
 			}
 
+			// Overflow to the other side of the grid.
 			xxx := xx
 			xxx += g.width
 			xxx %= g.width
