@@ -83,16 +83,21 @@ func TestIsLiveNextGen(t *testing.T) {
 			wantIfDead: false,
 		},
 		{
-			name:       "one live neighbour",
-			grid:       gridWithLiveCells([]XY{{5, 4}}),
+			name: "one live neighbour",
+			grid: gridWithLiveCells([]XY{
+				{5, 4},
+			}),
 			x:          5,
 			y:          5,
 			wantIfLive: false,
 			wantIfDead: false,
 		},
 		{
-			name:       "two live neighbours",
-			grid:       gridWithLiveCells([]XY{{5, 4}, {5, 6}}),
+			name: "two live neighbours",
+			grid: gridWithLiveCells([]XY{
+				{5, 4},
+				{5, 6},
+			}),
 			x:          5,
 			y:          5,
 			wantIfLive: true,
