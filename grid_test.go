@@ -33,8 +33,8 @@ func TestNewGrid(t *testing.T) {
 			}
 		}
 
-		// Accept an error of 10%
-		require.InDelta(t, want, live, float64(width*height)*0.1)
+		// Accept an error of 20%
+		require.InEpsilon(t, want, live, 0.2)
 	})
 }
 
