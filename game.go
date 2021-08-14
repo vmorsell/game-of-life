@@ -9,7 +9,7 @@ type Game struct {
 	gen         int
 }
 
-// NewGame returns a new Game instance with the provided starting grid.
+// NewGame returns a new Game instance.
 func NewGame(width, height int) *Game {
 	return &Game{
 		currentGrid: NewGrid(width, height, true),

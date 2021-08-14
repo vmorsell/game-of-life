@@ -13,7 +13,7 @@ type Grid struct {
 }
 
 // NewGrid returns a new Grid instance and optionally populates it with
-// approximate 20 % live cells.
+// approximately 20 % live cells.
 func NewGrid(width, height int, populate bool) *Grid {
 	cells := make([][]bool, height)
 	for i := range cells {
@@ -56,7 +56,7 @@ func (g *Grid) IsLiveNextGen(x, y int) bool {
 				continue
 			}
 
-			// Overflow to the other side of the grid.
+			// Handle grid overflow and underflow.
 			xxx := xx
 			xxx += g.width
 			xxx %= g.width
