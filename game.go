@@ -9,8 +9,8 @@ type Game struct {
 	gen         int
 }
 
-// New returns a new Game instance with the provided starting grid.
-func New(width, height int) *Game {
+// NewGame returns a new Game instance with the provided starting grid.
+func NewGame(width, height int) *Game {
 	return &Game{
 		currentGrid: NewGrid(width, height, true),
 		nextGrid:    NewGrid(width, height, false),

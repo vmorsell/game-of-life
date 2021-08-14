@@ -7,7 +7,7 @@ import (
 )
 
 func TestNewGame(t *testing.T) {
-	got := New(10, 10)
+	got := NewGame(10, 10)
 
 	require.NotNil(t, got.currentGrid)
 	require.NotNil(t, got.nextGrid)
