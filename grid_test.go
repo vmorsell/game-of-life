@@ -191,7 +191,7 @@ func TestIsLiveNextGen(t *testing.T) {
 			wantIfDead: false,
 		},
 		{
-			name: "grid overflow x",
+			name: "grid underflow x",
 			grid: gridWithLiveCells([]XY{
 				{0, 4},
 				{9, 4},
@@ -202,7 +202,7 @@ func TestIsLiveNextGen(t *testing.T) {
 			wantIfDead: false,
 		},
 		{
-			name: "grid overflow y",
+			name: "grid underflow y",
 			grid: gridWithLiveCells([]XY{
 				{5, 1},
 				{4, 9},
@@ -213,13 +213,46 @@ func TestIsLiveNextGen(t *testing.T) {
 			wantIfDead: false,
 		},
 		{
-			name: "grid overflow x and y",
+			name: "grid underflow x and y",
 			grid: gridWithLiveCells([]XY{
 				{9, 0},
 				{9, 9},
 			}),
 			x:          0,
 			y:          0,
+			wantIfLive: true,
+			wantIfDead: false,
+		},
+		{
+			name: "grid overflow x",
+			grid: gridWithLiveCells([]XY{
+				{0, 4},
+				{9, 4},
+			}),
+			x:          9,
+			y:          5,
+			wantIfLive: true,
+			wantIfDead: false,
+		},
+		{
+			name: "grid overflow y",
+			grid: gridWithLiveCells([]XY{
+				{5, 0},
+				{4, 9},
+			}),
+			x:          5,
+			y:          9,
+			wantIfLive: true,
+			wantIfDead: false,
+		},
+		{
+			name: "grid underflow x and y",
+			grid: gridWithLiveCells([]XY{
+				{9, 0},
+				{0, 9},
+			}),
+			x:          9,
+			y:          9,
 			wantIfLive: true,
 			wantIfDead: false,
 		},
