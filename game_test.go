@@ -7,17 +7,12 @@ import (
 )
 
 func TestNewGame(t *testing.T) {
-	grid := NewGrid(10, 10, false)
+	got := New(10, 10)
 
-	g := New(grid)
-
-	t.Run("current grid", func(t *testing.T) {
-		require.Equal(t, grid, g.currentGrid)
-	})
-
-	t.Run("next grid", func(t *testing.T) {
-		require.Equal(t, grid, g.nextGrid)
-	})
+	require.NotNil(t, got.currentGrid)
+	require.NotNil(t, got.nextGrid)
+	require.NotSame(t, got.currentGrid, got.nextGrid)
+	require.Zero(t, got.gen)
 }
 
 func TestStep(t *testing.T) {
@@ -47,7 +42,10 @@ func TestStep(t *testing.T) {
 		},
 	}
 
-	g := New(grid)
+	g := &Game{
+		currentGrid: grid,
+		nextGrid:    NewGrid(grid.width, grid.height, true), // Random populated next grid.
+	}
 	g.Step()
 	require.Equal(t, want, g.currentGrid)
 }
@@ -62,7 +60,9 @@ func TestString(t *testing.T) {
 			{false, true},
 		},
 	}
-	g := New(grid)
+	g := &Game{
+		currentGrid: grid,
+	}
 
 	got := g.String()
 	require.Equal(t, want, got)

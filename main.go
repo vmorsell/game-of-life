@@ -21,8 +21,7 @@ func main() {
 	}
 	rand.Seed(seed)
 
-	grid := NewGrid(150, 50, true)
-	game := New(grid)
+	game := New(150, 50)
 	for i := 0; i < 10000; i++ {
 		clear()
 
