@@ -16,7 +16,7 @@ import (
 var (
 	width                = 150
 	height               = 50
-	freq   time.Duration = 30
+	freq   time.Duration = 10
 )
 
 func main() {
