@@ -40,7 +40,7 @@ func (g *Game) Render() {
 	for y := 0; y < g.currentGrid.height; y++ {
 		for x := 0; x < g.currentGrid.width; x++ {
 			if g.currentGrid.IsLive(x, y) {
-				termbox.SetCell(x, y, '*', termbox.ColorGreen, termbox.ColorDefault)
+				termbox.SetCell(x, y, '■', termbox.ColorGreen, termbox.ColorDefault)
 			}
 		}
 	}
