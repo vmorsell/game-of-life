@@ -14,8 +14,8 @@ import (
 )
 
 var (
-	width                = 150
-	height               = 50
+	width                = 80
+	height               = 25
 	freq   time.Duration = 10
 )
 
