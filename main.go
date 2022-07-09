@@ -13,6 +13,12 @@ import (
 	"github.com/nsf/termbox-go"
 )
 
+var (
+	width                = 150
+	height               = 50
+	freq   time.Duration = 30
+)
+
 func main() {
 	seed, err := cryptoSeed()
 	if err != nil {
@@ -33,7 +39,7 @@ func main() {
 		}
 	}()
 
-	game := NewGame(150, 50)
+	game := NewGame(width, height)
 	game.Render()
 
 loop:
@@ -47,7 +53,7 @@ loop:
 		default:
 			game.Render()
 			game.Step()
-			time.Sleep(time.Second / 30)
+			time.Sleep(time.Second / freq)
 		}
 	}
 }
