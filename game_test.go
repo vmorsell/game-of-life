@@ -49,21 +49,3 @@ func TestStep(t *testing.T) {
 	g.Step()
 	require.Equal(t, want, g.currentGrid)
 }
-
-func TestString(t *testing.T) {
-	want := "+ \n +\n"
-	grid := &Grid{
-		width:  2,
-		height: 2,
-		cells: [][]bool{
-			{true, false},
-			{false, true},
-		},
-	}
-	g := &Game{
-		currentGrid: grid,
-	}
-
-	got := g.String()
-	require.Equal(t, want, got)
-}

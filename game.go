@@ -1,6 +1,8 @@
 package main
 
-import "bytes"
+import (
+	"github.com/nsf/termbox-go"
+)
 
 // Game is the main struct for this application.
 type Game struct {
@@ -31,18 +33,16 @@ func (g *Game) Step() {
 	g.gen++
 }
 
-// String returns a string visualization of the game's current state.
-func (g *Game) String() string {
-	var buf bytes.Buffer
+// Render uses Termbox to render the current state of the game.
+func (g *Game) Render() {
+	termbox.Clear(termbox.ColorDefault, termbox.ColorDefault)
+
 	for y := 0; y < g.currentGrid.height; y++ {
 		for x := 0; x < g.currentGrid.width; x++ {
-			b := byte(' ')
 			if g.currentGrid.IsLive(x, y) {
-				b = '+'
+				termbox.SetCell(x, y, '*', termbox.ColorGreen, termbox.ColorDefault)
 			}
-			buf.WriteByte(b)
 		}
-		buf.WriteByte('\n')
 	}
-	return buf.String()
+	termbox.Flush()
 }

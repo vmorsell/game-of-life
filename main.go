@@ -6,12 +6,11 @@ import (
 	crypto_rand "crypto/rand"
 	"encoding/binary"
 	"errors"
-	"fmt"
 	"log"
 	"math/rand"
-	"os"
-	"os/exec"
 	"time"
+
+	"github.com/nsf/termbox-go"
 )
 
 func main() {
@@ -21,20 +20,36 @@ func main() {
 	}
 	rand.Seed(seed)
 
-	game := NewGame(150, 50)
-	for i := 0; i < 10000; i++ {
-		clear()
-
-		game.Step()
-		fmt.Print(game)
-		time.Sleep(time.Second / 30)
+	err = termbox.Init()
+	if err != nil {
+		log.Fatalf("termbox: %v", err)
 	}
-}
+	defer termbox.Close()
 
-func clear() {
-	cmd := exec.Command("clear")
-	cmd.Stdout = os.Stdout
-	cmd.Run()
+	eventQueue := make(chan termbox.Event)
+	go func() {
+		for {
+			eventQueue <- termbox.PollEvent()
+		}
+	}()
+
+	game := NewGame(150, 50)
+	game.Render()
+
+loop:
+	for i := 0; i < 10000; i++ {
+		select {
+		case ev := <-eventQueue:
+			if ev.Ch == 'q' || ev.Key == termbox.KeyEsc {
+				break loop
+			}
+
+		default:
+			game.Render()
+			game.Step()
+			time.Sleep(time.Second / 30)
+		}
+	}
 }
 
 func cryptoSeed() (int64, error) {
