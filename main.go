@@ -3,9 +3,6 @@
 package main
 
 import (
-	crypto_rand "crypto/rand"
-	"encoding/binary"
-	"errors"
 	"log"
 	"math/rand"
 	"time"
@@ -20,13 +17,9 @@ var (
 )
 
 func main() {
-	seed, err := cryptoSeed()
-	if err != nil {
-		log.Fatalf("seed: %v", err)
-	}
-	rand.Seed(seed)
+	rand.Seed(time.Now().UnixNano())
 
-	err = termbox.Init()
+	err := termbox.Init()
 	if err != nil {
 		log.Fatalf("termbox: %v", err)
 	}
@@ -56,14 +49,4 @@ loop:
 			time.Sleep(time.Second / freq)
 		}
 	}
-}
-
-func cryptoSeed() (int64, error) {
-	var b [8]byte
-
-	if _, err := crypto_rand.Read(b[:]); err != nil {
-		return 0, errors.New("cannot seed math/rand package with cryptographically secure random number generator")
-	}
-
-	return int64(binary.LittleEndian.Uint64(b[:])), nil
 }
